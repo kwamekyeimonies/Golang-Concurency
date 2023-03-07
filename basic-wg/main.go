@@ -8,7 +8,7 @@ import (
 
 func main() {
 	var wg sync.WaitGroup
-	// wg.Add(3)
+	// wg.Add(10)
 	// // go func() {
 	// // 	fmt.Println("WaitGroup done: 1")
 	// // 	defer wg.Done()
@@ -21,15 +21,26 @@ func main() {
 	// // 	fmt.Println("WaitGroup done: 3")
 	// // 	defer wg.Done()
 	// // }()
-	// // now := time.Now()
-	// // fmt.Println("Elapsed: ", time.Since(now))
-	// // wg.Wait()
-	for i := 0; i < 10; i++ {
-		go work(&wg, i+1)
-	}
+	// now := time.Now()
+	// for i := 0; i < 10; i++ {
+	// 	go work(&wg, i+1)
+	// }
+	// wg.Wait()
+	// time.Sleep(100 * time.Millisecond)
+	// fmt.Println("Done with Main waitgroup")
+	// fmt.Println("Number of Core CPU: ", runtime.NumCPU())
+	// fmt.Println("Elapsed: ", time.Since(now))
+
+	go func() {
+		defer wg.Done()
+		time.Sleep(300 * time.Millisecond)
+		fmt.Println("Go routine done")
+	}()
+	wg.Wait()
+	fmt.Println("Execute Immediately after Goroutine")
 }
 
-func work(wg *sync.WaitGroup, id int) {
+func Work(wg *sync.WaitGroup, id int) {
 	defer wg.Done()
 	time.Sleep(100 * time.Millisecond)
 	fmt.Println("Task: ", id, " is done")
