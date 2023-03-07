@@ -6,3 +6,5 @@ Deadlocks
 Livelocks
 Starvation
 Code Complexity
+
+Alway Pass a Waitgroup as a pointer
