@@ -1,31 +1,42 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
-	"sync/atomic"
+	"sync"
 )
 
+
 func main(){
-	li,err := net.Listen("tcp",":8080")
-	if err != nil{
-		log.Fatalf("Could not Create Listener %v\n",err)
-	}
-
-	var connections int32
-
-	for {
-		conn,err := li.Accept()
-		if err != nil{
-			continue
+	total,max := 10,3
+	var wg sync.WaitGroup
+	for i:= 0; i< total; i+= max{
+		limit := max
+		if i+max > total{
+			limit = total - 1
 		}
-		connections++
-		go func(){
-			defer func(){
-				_=conn.Close()
-				atomic.AddInt32((&connections,-1))
-			}()
-			if atomic.
-		}()
+
+		wg.Add(limit)
+		for j:=0; j<limit; j++{
+			go func (j int)  {
+				defer wg.Done()
+				conn,err := net.Dial("tcp",":8080")
+				if err != nil{
+					log.Fatalf("Could not dial: %v",err)
+				}
+				bs,err := ioutil.ReadAll(conn)
+				if err != nil{
+					log.Fatalf("Could not Read from connection %v",err)
+				}
+				if string(bs) != "success"{
+					log.Fatal("request error, request : %d",i+1+j)
+				}
+				fmt.Printf("Request %d: Success\n",i+1+j)
+			}(j)
+		}
+		wg.Wait()
 	}
+	
 }
