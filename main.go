@@ -1,27 +1,22 @@
 package main
 
-import (
-	"fmt"
-	"math/rand"
-	"time"
-)
+import "fmt"
 
 func main() {
 
-	channel := make(chan string)
-	numRounds := 5
-	go Throwing_Start(channel, numRounds)
-	// fmt.Println(<-channel)
-	for message := range channel {
+	x, y := make(chan string), make(chan string)
+	go Elect(x, "Daniel")
+	go Elect(y, "Tenkorang")
+
+	select {
+	case message := <-x:
+		fmt.Println(message)
+	case message := <-y:
 		fmt.Println(message)
 	}
+
 }
 
-func Throwing_Start(channel chan string, numRounds int) {
-	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < numRounds; i++ {
-		score := rand.Intn(10)
-		channel <- fmt.Sprintf("You scored: %v", score)
-	}
-
+func Elect(ninja chan string, message string) {
+	ninja <- message
 }
