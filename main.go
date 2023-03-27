@@ -7,22 +7,24 @@ import (
 
 func main() {
 
-	start := time.Now()
+	now := time.Now()
 	defer func() {
-		fmt.Println(time.Since(start))
+		fmt.Println("Time taken is: ", time.Since(now))
 	}()
 
-	Food := []string{"Jollof", "Rice and Stew", "Banku and Tilapia", "Fried Rice"}
+	signal_channel := make(chan bool)
+	monies := "Daniel Tenkorang"
+	go Attacker(monies, signal_channel)
+	fmt.Println(<-signal_channel)
 
-	for _, my_food := range Food {
-		go Attacker(my_food)
-	}
-
-	time.Sleep(time.Second * 2)
+	fmt.Println("I Love You")
+	signal_channel <- false
+	fmt.Println(<-signal_channel)
 
 }
 
-func Attacker(target string) {
+func Attacker(target string, attacked chan bool) {
 	fmt.Println("Throwing Ninja starts", target)
-	time.Sleep(time.Second)
+	attacked <- true
+
 }
