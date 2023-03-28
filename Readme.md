@@ -20,3 +20,13 @@ FORK-JOIN MODEL
 This shows that,the efficiency(speed) of a programs is not solely determined by How Efficient the Algorithm is,but also the Operations been performed by the CPU at the same time.
 
 The WaitGroup can be used interchangeably with the Channels as Demonstrated in this Project
+
+Problems Faced with Concurrency
+
+-Race Conditions
+Multiples pieces of concurrent program shares data
+-Deadlocks
+where processes wait for one another
+-Livelocks
+-Starvation
+-Code Complexity
