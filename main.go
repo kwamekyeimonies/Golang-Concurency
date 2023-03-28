@@ -1,7 +1,6 @@
 package main
 
-
-//No-Join
+//Without Wait-Group
 import (
 	"fmt"
 	"time"
@@ -13,15 +12,17 @@ func main() {
 
 	defer func() {
 		fmt.Println(time.Since(now))
-		fmt.Println("Done Waiting for the Main exits")
+		fmt.Println("Without Waitgroup")
 	}()
 
-	go Work()
-	time.Sleep(100 * time.Millisecond)
+	for i := 0; i < 10; i++ {
+		go Work(i + 1)
+	}
 
+	time.Sleep(100 * time.Millisecond)
 }
 
-func Work() {
-	time.Sleep(500 * time.Millisecond)
-	fmt.Println("Printing my Work to be done")
+func Work(id int) {
+	time.Sleep(100 * time.Millisecond)
+	fmt.Println("Number: ", id)
 }

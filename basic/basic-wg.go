@@ -12,24 +12,27 @@ func main() {
 
 	defer func() {
 		fmt.Println(time.Since(now))
-		fmt.Println("Done Waiting for the Main exits")
 	}()
 
 	var wg sync.WaitGroup
-	wg.Add(1)
+
+	wg.Add(3)
 
 	go func() {
 		defer wg.Done()
-		Work()
+		fmt.Println("Welcome 1st Person")
 	}()
 
-	// this function is not equal to the code below
+	go func() {
+		defer wg.Done()
+		fmt.Println("Welcome 2nd Person")
+	}()
 
-	// defer wg.Done()
-	// go Work()
+	go func() {
+		defer wg.Done()
+		fmt.Println("Welcome 3rd Person")
+	}()
+
 	wg.Wait()
-}
 
-func Work() {
-	fmt.Println("Printing my Work to be done")
 }
