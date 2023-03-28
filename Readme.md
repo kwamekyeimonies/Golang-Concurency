@@ -16,3 +16,7 @@ Thread -->Is a program designed to be scheduled and exeuted by the CPU
 
 
 FORK-JOIN MODEL
+
+This shows that,the efficiency(speed) of a programs is not solely determined by How Efficient the Algorithm is,but also the Operations been performed by the CPU at the same time.
+
+The WaitGroup can be used interchangeably with the Channels as Demonstrated in this Project

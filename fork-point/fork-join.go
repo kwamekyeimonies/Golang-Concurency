@@ -1,9 +1,8 @@
 package main
 
-
-//No-Join
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -16,12 +15,21 @@ func main() {
 		fmt.Println("Done Waiting for the Main exits")
 	}()
 
-	go Work()
-	time.Sleep(100 * time.Millisecond)
+	var wg sync.WaitGroup
+	wg.Add(1)
 
+	go func() {
+		defer wg.Done()
+		Work()
+	}()
+
+	// this function is not equal to the code below
+
+	// defer wg.Done()
+	// go Work()
+	wg.Wait()
 }
 
 func Work() {
-	time.Sleep(500 * time.Millisecond)
 	fmt.Println("Printing my Work to be done")
 }

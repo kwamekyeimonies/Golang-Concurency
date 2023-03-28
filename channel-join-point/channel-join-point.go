@@ -1,7 +1,6 @@
 package main
 
-
-//No-Join
+//Channel Join Point
 import (
 	"fmt"
 	"time"
@@ -16,12 +15,15 @@ func main() {
 		fmt.Println("Done Waiting for the Main exits")
 	}()
 
-	go Work()
-	time.Sleep(100 * time.Millisecond)
+	done := make(chan struct{})
 
+	go func() {
+		Work()
+		done <- struct{}{}
+	}()
+	<-done
 }
 
 func Work() {
-	time.Sleep(500 * time.Millisecond)
 	fmt.Println("Printing my Work to be done")
 }
