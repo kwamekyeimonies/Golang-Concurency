@@ -1,22 +1,46 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
+	now := time.Now()
+	defer func() {
+		fmt.Println(time.Since(now))
+	}()
 
-	x, y := make(chan string), make(chan string)
-	go Elect(x, "Daniel")
-	go Elect(y, "Tenkorang")
+	go First_task()
+	go Second_Task()
+	go Third_Task()
+	go Fourth_Task()
+	go Fifth_Task()
 
-	select {
-	case message := <-x:
-		fmt.Println(message)
-	case message := <-y:
-		fmt.Println(message)
-	}
-
+	time.Sleep(time.Second )
 }
 
-func Elect(ninja chan string, message string) {
-	ninja <- message
+func First_task() {
+	time.Sleep(time.Millisecond * 100)
+	fmt.Println("First Task")
+}
+
+func Second_Task() {
+	time.Sleep(time.Millisecond * 200)
+	fmt.Println("Second_Task")
+}
+
+func Third_Task() {
+	// time.Sleep(time.Millisecond * 100)
+	fmt.Println("Third_Task")
+}
+
+func Fourth_Task() {
+	time.Sleep(time.Millisecond * 100)
+	fmt.Println("Fourth_Task")
+}
+
+func Fifth_Task() {
+	time.Sleep(time.Millisecond * 100)
+	fmt.Println("Fifth_Task")
 }

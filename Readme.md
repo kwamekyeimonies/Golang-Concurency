@@ -8,3 +8,11 @@ Starvation
 Code Complexity
 
 Always Pass a Waitgroup as a pointer
+
+What is a Goroutine?
+Is a lightweight execution thread in the Go programming Language and function that executes concurrently with the rest of the program. Dealing with things at the same time.
+
+Thread -->Is a program designed to be scheduled and exeuted by the CPU 
+
+
+FORK-JOIN MODEL
