@@ -4,7 +4,7 @@ import "sync"
 
 func main() {
 
-	var wg sync.WaitGroup
+	var wg sync.WaitGroup 
 
 	for i := 0; i < 100; i++ {
 		go func() {
