@@ -1,6 +1,6 @@
 package main
 
-//Without Wait-Group
+
 import (
 	"fmt"
 	"time"
