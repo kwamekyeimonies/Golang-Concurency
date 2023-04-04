@@ -1,28 +1,21 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
 func main() {
+	ch := make(chan int)
 
-	now := time.Now()
-
-	defer func() {
-		fmt.Println(time.Since(now))
+	go func() {
+		// send a value to the channel
+		ch <- 42
 	}()
 
-	smokeSignal := make(chan bool)
-	evilNinja := "Dexoangle"
-	go Attacker(evilNinja, smokeSignal)
-	smokeSignal <- true
-	fmt.Println(<-smokeSignal)
+	// receive the value from the channel
+	value := <-ch
 
+	fmt.Println(value) // Output: 42
+
+	ch <- 48 
+	fmt.Println(<-ch)
 }
 
-func Attacker(target string, mychx chan bool) {
-	fmt.Println(target)
-	time.Sleep(time.Second)
-	mychx <- true
-}
